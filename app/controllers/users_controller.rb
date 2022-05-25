@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to "/users/#{@user.id}"
     else
-      redirect_to "/register"
+      flash.now[:user_errors] = 'User Not Registered'
+      render 'new'
     end
   end
 
