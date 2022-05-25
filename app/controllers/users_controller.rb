@@ -23,7 +23,8 @@ class UsersController < ApplicationController
 
   def login_user
     @user = User.find_by(email: params[:email])
-    if @user.authenticate(params[:password])
+
+    if @user.authenticate(params[:password]) != false && params[:password] == params[:password_confirmation]
       redirect_to "/users/#{@user.id}", notice: 'Logged in successfully'
     else
       flash.now[:alert] = 'Invalid email or password'
