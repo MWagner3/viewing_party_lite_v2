@@ -45,5 +45,17 @@ RSpec.describe "Registration Page", type: :feature do
 
       expect(current_path).to eq("/users/#{@user3.id}")
     end
+
+    it "will stay on register page and show flash error message if incorrect info given" do
+
+      fill_in("name", with: "Celeste Chere")
+      fill_in("email", with: "celesff6@square.com")
+      fill_in("password", with: "abc123")
+      fill_in("password_confirmation", with: "wrong")
+      click_on "Register"
+
+      expect(current_path).to eq("/register")
+      expect(page).to have_content("User Not Registered")
+    end
   end
 end
